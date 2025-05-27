@@ -50,19 +50,47 @@ const store = (req, res) => {
 
     serieComiche.push(newSerie);
 
-   console.log(serieComiche);
+    console.log(serieComiche);
 
-   res.status(201);
-   res.json(serieComiche)
+    res.status(201);
+    res.json(serieComiche)
 
 }
 
 //UPDATE
 const update = (req, res) => {
     const serieID = req.params.id;
+
+    const serieModificata = serieComiche.find(curSerie => curSerie.id == serieID)
+
+    // console.log(serieModificata)
+
+    if (!serieModificata) {
+        res.status(404);
+
+        res.json({
+            error: 'Not Found',
+            message: 'Serie Non Trovata'
+        });
+
+    }
+
+    serieModificata.titolo = req.body.titolo;
+    serieModificata.anno = req.body.anno;
+    serieModificata.genere = req.body.genere;
+    serieModificata.regista = req.body.regista;
+    serieModificata.trama = req.body.trama;
+    serieModificata.img = req.body.img;
+
+    // res.json(serieModificata)
+    // console.log(serieComiche)
+    res.status(202)
+
     res.json({
-        data: `Modifico un singolo film con id ${serieID}`,
-    });
+        'serie modificata': serieModificata,
+        'nuove serie': serieComiche
+    })
+
 }
 
 //DESTROY 

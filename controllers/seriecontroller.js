@@ -33,9 +33,28 @@ const show = (req, res) => {
 
 //STORE
 const store = (req, res) => {
-    res.json({
-        data: "Aggiungo una serie",
-    });
+
+    console.log(req.body);
+
+    const nextID = String(parseInt(serieComiche[serieComiche.length - 1].id) + 1);
+
+    const newSerie = {
+        id: nextID,
+        titolo: req.body.titolo,
+        anno: req.body.anno,
+        genere: req.body.genere,
+        regista: req.body.regista,
+        trama: req.body.trama,
+        img: req.body.img
+    };
+
+    serieComiche.push(newSerie);
+
+   console.log(serieComiche);
+
+   res.status(201);
+   res.json(serieComiche)
+
 }
 
 //UPDATE

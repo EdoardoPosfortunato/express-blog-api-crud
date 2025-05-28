@@ -1,6 +1,7 @@
 import express from "express"
 import serieComiche from "./tvSeries.js";
 import serieRouter from "./routers/seriesRouter.js"
+import routeNotFound from "./MiddleWare/routeNotFound.js";
 
 // console.log("il terminale è collegato")
 // console.log(serieComiche)
@@ -16,6 +17,8 @@ app.get('/', (req, res) => {
 })
 
 app.use('/TVseries', serieRouter) // registrare il router
+
+app.use(routeNotFound)
 
 app.listen(port, () => {
     console.log(`La porta ${port} è aperta`)
